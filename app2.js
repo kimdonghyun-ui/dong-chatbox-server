@@ -14,8 +14,8 @@ const server = http.createServer(app);
 // socketio 생성후 서버 인스턴스 사용
 const io = socketIo(server, {
   cors: {
-    origin: "https://dong-chatbox-client.herokuapp.com",
-    // origin: "http://localhost:3000",
+    // origin: "https://dong-chatbox-client.herokuapp.com",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });

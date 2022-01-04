@@ -12,8 +12,8 @@ const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    // origin: "https://dong-chatbox-client.herokuapp.com",
-    origin: "http://localhost:3000",
+    origin: "https://dong-chatbox-client.herokuapp.com",
+    // origin: "http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });
@@ -32,11 +32,30 @@ let interval;
 //   });
 // });
 
-io.on('connection', socket => {
-    socket.on('message', ({ name, message }) => {
-      io.emit('message', { name, message })
-    })
-})
+// io.on('connection', socket => {
+//     socket.on('message', ({ name, message }) => {
+//       io.emit('message', { name, message })
+//     })
+// })
+
+
+io.on('connection', (socket) => {
+
+  socket.on('all_users', (msg) => {
+    console.log(msg)
+    io.emit('user_update', msg);
+
+  });
+
+
+  socket.on('all_rooms', (msg) => {
+    console.log(msg)
+    io.emit('room_update', msg);
+
+  });
+
+});
+
 
 
 
