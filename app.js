@@ -46,17 +46,16 @@ io.on('connection', (socket) => {
     io.emit('user_update', msg);
   });
 
+  socket.on('msgs', (msg) => {
+    console.log(msg)
+    io.emit('msgs_update', msg);
+  });
 
   socket.on('all_rooms', (msg) => {
     console.log(msg)
     io.emit('room_update', msg);
   });
 
-  socket.on('msgs', (data) => {
-    console.log(data)
-    // let new_msgs = data[1] > 0 && data[0].filter((item) => item.id === data[1])[0].attributes.msglist;
-    io.emit('msgs_update',data );
-  });
 
 
 });
