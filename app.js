@@ -46,17 +46,30 @@ io.on('connection', (socket) => {
     io.emit('user_update', msg);
   });
 
-  socket.on('msgs', (msg) => {
-    console.log(msg)
-    io.emit('msgs_update', msg);
-  });
-
   socket.on('all_rooms', (msg) => {
     console.log(msg)
     io.emit('room_update', msg);
   });
 
+  socket.on('get_msgs', (msg) => {
+    console.log(msg)
+    io.emit('get_msgs_update', msg);
+  });
 
+  socket.on('joinRoom', function(roomName) {     // joinRoom을 클라이언트가 emit 했을 시
+    console.log(roomName)
+
+    socket.join(roomName.Room);    // 클라이언트를 msg에 적힌 room으로 참여 시킴
+    io.to(roomName.Room).emit('joinMsg', roomName); 
+    // io.to(roomName.Room).emit('joinMsg', `${roomName.Room}의 방에 ${roomName.NickName}입장`); 
+  });
+
+  socket.on('leaveRoom', (roomName) => {
+    console.log('roomName',roomName)
+    console.log('나갔어?')
+    socket.leave(roomName.Room);
+    io.to(roomName.Room).emit('leaveMsg', roomName); 
+  });
 
 });
 
