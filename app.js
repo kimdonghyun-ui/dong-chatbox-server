@@ -12,8 +12,8 @@ const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: "https://dong-chatbox-client.herokuapp.com",
-    // origin: "http://localhost:3000",
+    // origin: "https://dong-chatbox-client.herokuapp.com",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });
@@ -43,17 +43,22 @@ io.on('connection', (socket) => {
 
   socket.on('all_users', (msg) => {
     console.log(msg)
-    io.emit('user_update', msg);
+    io.emit('all_user_update', msg);
   });
 
   socket.on('all_rooms', (msg) => {
     console.log(msg)
-    io.emit('room_update', msg);
+    io.emit('all_room_update', msg);
   });
 
-  socket.on('get_msgs', (msg) => {
+  socket.on('all_msgs', (msg) => {
     console.log(msg)
-    io.emit('get_msgs_update', msg);
+    io.emit('all_msgs_update', msg);
+  });
+
+  socket.on('focusroom', (msg) => {
+    console.log(msg)
+    io.emit('focusroom_update', msg);
   });
 
   socket.on('joinRoom', function(roomName) {     // joinRoom을 클라이언트가 emit 했을 시
