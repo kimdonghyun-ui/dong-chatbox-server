@@ -76,6 +76,12 @@ io.on('connection', (socket) => {
     io.to(roomName.Room).emit('leaveMsg', roomName); 
   });
 
+  socket.on('disconnect', (dis) => {
+
+    console.log('소켓종료했어',dis)
+
+  });
+
 });
 
 
